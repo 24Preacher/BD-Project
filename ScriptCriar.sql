@@ -24,19 +24,26 @@ USE `cLEInics` ;
 DROP TABLE IF EXISTS `cLEInics`.`Modalidades` ;
 
 CREATE TABLE IF NOT EXISTS `cLEInics`.`Modalidades` (
-  `idModalidades` INT NOT NULL,
+  `idModalidades` INT NOT NULL AUTO_INCREMENT,
   `Modalidade` VARCHAR(32) NOT NULL,
   PRIMARY KEY (`idModalidades`))
 ENGINE = InnoDB;
 
-
+INSERT INTO Modalidades
+		(Modalidade)
+        VALUES
+        ('Corrida'),
+        ('Salto'),
+        ('Lançamento'),
+        ('Natação');
+        
 -- -----------------------------------------------------
 -- Table `cLEInics`.`Categoria`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `cLEInics`.`Categoria` ;
 
 CREATE TABLE IF NOT EXISTS `cLEInics`.`Categoria` (
-  `idCategoria` INT NOT NULL,
+  `idCategoria` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NULL,
   `Modalidades_idModalidades` INT NOT NULL,
   PRIMARY KEY (`idCategoria`),
@@ -48,6 +55,28 @@ CREATE TABLE IF NOT EXISTS `cLEInics`.`Categoria` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+INSERT INTO Categoria
+		(Nome, Modalidades_idModalidades)
+        VALUES
+        ('100 metros', 1), 
+        ('200 metros', 1), 
+        ('400 metros', 1), 
+        ('Obstáculos', 1), 
+        ('Altura', 2),
+        ('Comprimento', 2),
+        ('Triplo', 2),
+        ('Vara', 2),
+        ('Peso', 3),
+        ('Dardo', 3),
+        ('Martelo', 3),
+        ('Disco', 3),
+        ('Livres 50 metros', 4),
+        ('Livres 100 metros', 4),
+        ('Livres 800 metros', 4),
+        ('Crawl 50 metros', 4),
+        ('Crawl 100 metros', 4),
+        ('Costas 50 metros', 4),
+        ('Costas 100 metros', 4);
 
 -- -----------------------------------------------------
 -- Table `cLEInics`.`Atleta`
@@ -70,6 +99,25 @@ CREATE TABLE IF NOT EXISTS `cLEInics`.`Atleta` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+INSERT INTO Atleta
+		(Nome, Escalao, Telemovel, Email, Categoria_idCategoria)
+        VALUES
+        ('André Fonseca', 'Senior', 910000005, 'rasputin@gmail.com', 11),
+        ('Mariana Pereira', 'Senior', 910000006, 'mulan@gmail.com', 4),
+        ('Gonçalo Garcia', 'Senior', 910000011, 'golias@gmail.com', 15),
+        ('Artur Ribeiro', 'Junior', 910000012, 'flash@gmail.com', 1),
+        ('Davide Matos', 'Junior', 910000014, 'groot@gmail.com', 2),
+        ('Pedro Medeiros', 'Junior', 910000024, 'preacher@gmail.com', 6),
+        ('Nuno Silva', 'Juvenil', 910000025, 'mineiro@gmail.com', 8),
+        ('João Duarte', 'Juvenil', 910000027, 'zet@gmail.com', 18),
+        ('Pedro Lima', 'Juvenil', 910000032, 'eddy@gmail.com', 12),
+        ('Francisco Freitas', 'Infantil', 910000045, 'cyborg@gmail.com', 7),
+        ('Shahzod Yusupov', 'Infantil', 910000047, 'balboa@gmail.com', 9),
+        ('Alexandre Pacheco', 'Infantil', 910000051, 'megamind@gmail.com', 3),
+        ('Fábio Silva', 'Senior', 910000053, 'frota@gmail.com', 6),
+        ('Diogo Sobral', 'Junior', 910000054, 'ambrosio@gmail.com', 5),
+        ('Inês Alves', 'Juvenil', 910000059, 'sbentas@gmail.com', 19),
+        ('Pedro Pinto', 'Infantil', 910000062, 'random@gmail.com', 1);
 
 -- -----------------------------------------------------
 -- Table `cLEInics`.`Medico`
@@ -80,10 +128,24 @@ CREATE TABLE IF NOT EXISTS `cLEInics`.`Medico` (
   `idMedico` INT NOT NULL AUTO_INCREMENT,
   `Nome` VARCHAR(32) NOT NULL,
   `Especialidade` VARCHAR(32) NOT NULL,
-  `Reputação` VARCHAR(10) NOT NULL,
+  `Reputação` VARCHAR(12) NOT NULL,
   PRIMARY KEY (`idMedico`))
 ENGINE = InnoDB;
 
+INSERT INTO Medico
+		(Nome, Especialidade, Reputação)
+        VALUES
+        ('Adriana Meireles', 'Ortopedia', 'Famoso'),
+        ('Helena Martins', 'Ortopedia', 'Conhecido'),
+        ('Pedro Freitas', 'Ortopedia', 'Desconhecido'),
+        ('Pedro Pinto', 'Ortopedia', 'Famoso'),
+        ('Luís Moreira', 'Ortopedia', 'Desconhecido'),
+        ('Andre Costa', 'Ortopedia', 'Conhecido'),
+        ('Francisco Laço', 'Ortopedia', 'Famoso'),
+        ('Filipa Pereira', 'Ortopedia', 'Conhecido'),
+        ('Marta Ribeiro', 'Ortopedia', 'Desconhecido'),
+        ('Maria Dias', 'Ortopedia', 'Conhecido'),
+        ('Carla Cruz', 'Ortopedia', 'Famoso');
 
 -- -----------------------------------------------------
 -- Table `cLEInics`.`Consulta`
@@ -92,28 +154,36 @@ DROP TABLE IF EXISTS `cLEInics`.`Consulta` ;
 
 CREATE TABLE IF NOT EXISTS `cLEInics`.`Consulta` (
   `idConsulta` INT NOT NULL AUTO_INCREMENT,
-  `Descricao` VARCHAR(45) NOT NULL,
+  `Descrição` VARCHAR(45) NOT NULL,
   `Horario` DATETIME NOT NULL,
-  `Duracao` TIME NOT NULL,
+  `Duração` TIME NOT NULL,
   `Custo` DECIMAL(5,2) NOT NULL,
-  `Pago` BINARY(0) NOT NULL,
-  `idAtleta` INT NOT NULL,
-  `idMedico` INT NOT NULL,
+  `Pago` BINARY(1) NOT NULL,
+  `Atleta_idAtleta` INT NOT NULL,
+  `Medico_idMedico` INT NOT NULL,
   PRIMARY KEY (`idConsulta`),
-  INDEX `idAtleta_idx` (`idAtleta` ASC) VISIBLE,
-  INDEX `idMedico_idx` (`idMedico` ASC) VISIBLE,
-  CONSTRAINT `idAtleta`
-    FOREIGN KEY (`idAtleta`)
+  INDEX `fk_Consulta_Atleta1_idx` (`Atleta_idAtleta` ASC) VISIBLE,
+  INDEX `fk_Consulta_Medico1_idx` (`Medico_idMedico` ASC) VISIBLE,
+  CONSTRAINT `fk_Consulta_Atleta1`
+    FOREIGN KEY (`Atleta_idAtleta`)
     REFERENCES `cLEInics`.`Atleta` (`idAtleta`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `idMedico`
-    FOREIGN KEY (`idMedico`)
+  CONSTRAINT `fk_Consulta_Medico1`
+    FOREIGN KEY (`Medico_idMedico`)
     REFERENCES `cLEInics`.`Medico` (`idMedico`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+INSERT INTO Consulta
+		(Descrição, Horario, Duração, Custo, Pago, Atleta_idAtleta, Medico_idMedico)
+        VALUES
+        ('Ombro Deslocado','2019-01-10 10:00:00', '00:20:00', 55.00, 1, 1, 1),
+        ('Entorse','2019-02-24 14:30:00', '00:50:00', 25.90, 1, 6, 2),
+        ('Traumatismo Craniano','2019-02-25 20:25:00', '01:20:00', 120.00, 1, 8, 6),
+        ('Pé Partido','2019-07-01 08:00:00', '00:50:00', 45.00, 0, 8, 1),
+        ('Distensão Muscular','2019-10-10 15:45:00', '00:45:00', 55.00, 1, 11, 4); 
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
