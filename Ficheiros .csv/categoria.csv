@@ -1,0 +1,20 @@
+idCategoria,nome,Modalidades_idModalidades
+1,"100 metros",1
+2,"200 metros",1
+3,"400 metros",1
+4,Obstáculos,1
+5,Altura,2
+6,Comprimento,2
+7,Triplo,2
+8,Vara,2
+9,Peso,3
+10,Dardo,3
+11,Martelo,3
+12,Disco,3
+13,"Livres 50 metros",4
+14,"Livres 100 metros",4
+15,"Livres 800 metros",4
+16,"Crawl 50 metros",4
+17,"Crawl 100 metros",4
+18,"Costas 50 metros",4
+19,"Costas 100 metros",4

@@ -35,7 +35,7 @@ INSERT INTO Modalidades
         ('Corrida'),
         ('Salto'),
         ('Lançamento'),
-        ('Natação');
+        ('Natacao');
         
 -- -----------------------------------------------------
 -- Table `cLEInics`.`Categoria`
@@ -102,21 +102,21 @@ ENGINE = InnoDB;
 INSERT INTO Atleta
 		(Nome, Escalao, Telemovel, Email, Categoria_idCategoria)
         VALUES
-        ('André Fonseca', 'Senior', 910000005, 'rasputin@gmail.com', 11),
+        ('Andre Fonseca', 'Senior', 910000005, 'rasputin@gmail.com', 11),
         ('Mariana Pereira', 'Senior', 910000006, 'mulan@gmail.com', 4),
         ('Gonçalo Garcia', 'Senior', 910000011, 'golias@gmail.com', 15),
         ('Artur Ribeiro', 'Junior', 910000012, 'flash@gmail.com', 1),
         ('Davide Matos', 'Junior', 910000014, 'groot@gmail.com', 2),
         ('Pedro Medeiros', 'Junior', 910000024, 'preacher@gmail.com', 6),
         ('Nuno Silva', 'Juvenil', 910000025, 'mineiro@gmail.com', 8),
-        ('João Duarte', 'Juvenil', 910000027, 'zet@gmail.com', 18),
+        ('Joao Duarte', 'Juvenil', 910000027, 'zet@gmail.com', 18),
         ('Pedro Lima', 'Juvenil', 910000032, 'eddy@gmail.com', 12),
         ('Francisco Freitas', 'Infantil', 910000045, 'cyborg@gmail.com', 7),
         ('Shahzod Yusupov', 'Infantil', 910000047, 'balboa@gmail.com', 9),
         ('Alexandre Pacheco', 'Infantil', 910000051, 'megamind@gmail.com', 3),
-        ('Fábio Silva', 'Senior', 910000053, 'frota@gmail.com', 6),
+        ('Fabio Silva', 'Senior', 910000053, 'frota@gmail.com', 6),
         ('Diogo Sobral', 'Junior', 910000054, 'ambrosio@gmail.com', 5),
-        ('Inês Alves', 'Juvenil', 910000059, 'sbentas@gmail.com', 19),
+        ('Ines Alves', 'Juvenil', 910000059, 'sbentas@gmail.com', 19),
         ('Pedro Pinto', 'Infantil', 910000062, 'random@gmail.com', 1);
 
 -- -----------------------------------------------------
@@ -128,18 +128,18 @@ CREATE TABLE IF NOT EXISTS `cLEInics`.`Medico` (
   `idMedico` INT NOT NULL AUTO_INCREMENT,
   `Nome` VARCHAR(32) NOT NULL,
   `Especialidade` VARCHAR(32) NOT NULL,
-  `Reputação` VARCHAR(12) NOT NULL,
+  `Reputacao` VARCHAR(12) NOT NULL,
   PRIMARY KEY (`idMedico`))
 ENGINE = InnoDB;
 
 INSERT INTO Medico
-		(Nome, Especialidade, Reputação)
+		(Nome, Especialidade, Reputacao)
         VALUES
         ('Adriana Meireles', 'Ortopedia', 'Famoso'),
         ('Helena Martins', 'Ortopedia', 'Conhecido'),
         ('Pedro Freitas', 'Ortopedia', 'Desconhecido'),
         ('Pedro Pinto', 'Ortopedia', 'Famoso'),
-        ('Luís Moreira', 'Ortopedia', 'Desconhecido'),
+        ('Luis Moreira', 'Ortopedia', 'Desconhecido'),
         ('Andre Costa', 'Ortopedia', 'Conhecido'),
         ('Francisco Laço', 'Ortopedia', 'Famoso'),
         ('Filipa Pereira', 'Ortopedia', 'Conhecido'),
@@ -154,9 +154,9 @@ DROP TABLE IF EXISTS `cLEInics`.`Consulta` ;
 
 CREATE TABLE IF NOT EXISTS `cLEInics`.`Consulta` (
   `idConsulta` INT NOT NULL AUTO_INCREMENT,
-  `Descrição` VARCHAR(45) NOT NULL,
+  `Descricao` VARCHAR(45) NOT NULL,
   `Horario` DATETIME NOT NULL,
-  `Duração` TIME NOT NULL,
+  `Duracao` TIME NOT NULL,
   `Custo` DECIMAL(5,2) NOT NULL,
   `Pago` BINARY(1) NOT NULL,
   `Atleta_idAtleta` INT NOT NULL,
@@ -177,13 +177,13 @@ CREATE TABLE IF NOT EXISTS `cLEInics`.`Consulta` (
 ENGINE = InnoDB;
 
 INSERT INTO Consulta
-		(Descrição, Horario, Duração, Custo, Pago, Atleta_idAtleta, Medico_idMedico)
+		(Descricao, Horario, Duracao, Custo, Pago, Atleta_idAtleta, Medico_idMedico)
         VALUES
         ('Ombro Deslocado','2019-01-10 10:00:00', '00:20:00', 55.00, 1, 1, 1),
         ('Entorse','2019-02-24 14:30:00', '00:50:00', 25.90, 1, 6, 2),
         ('Traumatismo Craniano','2019-02-25 20:25:00', '01:20:00', 120.00, 1, 8, 6),
-        ('Pé Partido','2019-07-01 08:00:00', '00:50:00', 45.00, 0, 8, 1),
-        ('Distensão Muscular','2019-10-10 15:45:00', '00:45:00', 55.00, 1, 11, 4); 
+        ('Pe Partido','2019-07-01 08:00:00', '00:50:00', 45.00, 0, 8, 1),
+        ('Distensao Muscular','2019-10-10 15:45:00', '00:45:00', 55.00, 1, 11, 4); 
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
