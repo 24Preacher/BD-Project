@@ -1,6 +1,5 @@
 USE cleinics;
 
-
 -- Procurar todos os atletas com consultas marcadas
 select a.nome, a.escalao 
 from atleta a
@@ -40,3 +39,38 @@ on c.idCategoria = a.Categoria_idCategoria
 group by m.modalidade
 limit 3;
 
+
+-- Devolve a modalidade com mais categorias
+select count(*), m.modalidade
+from categoria c
+inner join modalidades m
+on c.Modalidades_idModalidades = m.idModalidades
+group by m.modalidade
+order by count(*) desc
+limit 1;
+
+-- Número total de consultas que existe
+select count(*)
+from consulta;
+
+-- Atleta com mais consultas
+select count(*), a.nome, a.escalao
+from atleta a
+inner join consulta c
+on a.idAtleta = c.Atleta_idAtleta
+group by a.nome
+order by count(*) desc
+limit 1;
+
+-- Modalidade com mais consultas
+select count(*), m.modalidade
+from consulta c
+inner join atleta a
+on c.Atleta_idAtleta = a.idAtleta
+inner join categoria cat
+on a.Categoria_idCategoria = cat.idCategoria
+inner join modalidades m
+on cat.Modalidades_idModalidades = m.idModalidades
+group by a.nome
+order by count(*) desc
+limit 1;
