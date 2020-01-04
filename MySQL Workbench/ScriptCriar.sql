@@ -25,16 +25,16 @@ DROP TABLE IF EXISTS `cLEInics`.`Modalidades` ;
 
 CREATE TABLE IF NOT EXISTS `cLEInics`.`Modalidades` (
   `idModalidades` INT NOT NULL AUTO_INCREMENT,
-  `Modalidade` VARCHAR(32) NOT NULL,
+  `Nome` VARCHAR(32) NOT NULL,
   PRIMARY KEY (`idModalidades`))
 ENGINE = InnoDB;
 
 INSERT INTO Modalidades
-		(Modalidade)
+		(Nome)
         VALUES
         ('Corrida'),
         ('Salto'),
-        ('Lançamento'),
+        ('Lancamento'),
         ('Natacao');
         
 -- -----------------------------------------------------
@@ -44,7 +44,7 @@ DROP TABLE IF EXISTS `cLEInics`.`Categoria` ;
 
 CREATE TABLE IF NOT EXISTS `cLEInics`.`Categoria` (
   `idCategoria` INT NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(45) NULL,
+  `Nome` VARCHAR(45) NULL,
   `Modalidades_idModalidades` INT NOT NULL,
   PRIMARY KEY (`idCategoria`),
   INDEX `fk_Categoria_Modalidades1_idx` (`Modalidades_idModalidades` ASC) VISIBLE,

@@ -30,22 +30,22 @@ group by c.Medico_idMedico
 limit 1;
 
 -- Devolve o top 3 das modalidades com mais atletas
-select count(*), m.modalidade
+select count(*), m.nome
 from categoria c
 inner join modalidades m
 on c.Modalidades_idModalidades = m.idModalidades
 inner join atleta a 
 on c.idCategoria = a.Categoria_idCategoria
-group by m.modalidade
+group by m.nome
 limit 3;
 
 
 -- Devolve a modalidade com mais categorias
-select count(*), m.modalidade
+select count(*), m.nome
 from categoria c
 inner join modalidades m
 on c.Modalidades_idModalidades = m.idModalidades
-group by m.modalidade
+group by m.nome
 order by count(*) desc
 limit 1;
 
@@ -63,7 +63,7 @@ order by count(*) desc
 limit 1;
 
 -- Modalidade com mais consultas
-select count(*), m.modalidade
+select count(*), m.nome
 from consulta c
 inner join atleta a
 on c.Atleta_idAtleta = a.idAtleta

@@ -1,3 +1,7 @@
+//Unificar ID Atletas
+
+CREATE CONSTRAINT ON (a:Atleta) ASSERT a.idAtleta IS UNIQUE;
+
 //Import Atletas
 USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM "file:///atleta.csv" AS line
@@ -8,18 +12,31 @@ Telemovel: TOINTEGER(line.Telemovel),
 Email: line.Email,
 idCategoria: TOINTEGER(line.Categoria_idCategoria)});
 
-//Import Atletas
+//Unificar ID Categorias
+
+CREATE CONSTRAINT ON (c:Categoria) ASSERT c.idCategoria IS UNIQUE;
+
+//Import Catogorias
+
 USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM "file:///categoria.csv" AS line
 CREATE (c:Categoria {idCategoria: TOINTEGER(line.idCategoria),
 Nome: line.Nome,
-idModalidade: TOINTEGER(line.Modalidade_idModalidade)});
+idModalidades: TOINTEGER(line.Modalidades_idModalidades)});
+
+//Unificar ID Modalidades
+
+CREATE CONSTRAINT ON (m:Modalidade) ASSERT m.idModalidades IS UNIQUE;
 
 //Import Modalidades
 USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM "file:///modalidades.csv" AS line
-CREATE (m:Modalidade {idModalidade: TOINTEGER(line.idModalidade),
+CREATE (m:Modalidade {idModalidades: TOINTEGER(line.idModalidades),
 Nome: line.Nome});
+
+//Unificar ID Medicos
+
+CREATE CONSTRAINT ON (med:Medico) ASSERT med.idMedico IS UNIQUE;
 
 //Import Medicos
 USING PERIODIC COMMIT
@@ -29,6 +46,10 @@ Nome: line.Nome,
 Especialidade: line.Especialidade,
 Reputacao: line.Reputacao});
 
+//Unificar ID Consultas
+
+CREATE CONSTRAINT ON (con:Consulta) ASSERT con.idConsulta IS UNIQUE;
+
 //Import Consultas
 USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM "file:///consulta.csv" AS line
@@ -37,16 +58,9 @@ Descricao: line.Descricao,
 Horario: line.Horario,
 Duracao: line.Duracao,
 Custo: line.Custo,
-Pago: TOINTEGER(line.pago),
+Pago: line.Pago,
 idAtleta: TOINTEGER(line.Atleta_idAtleta),
 idMedico: TOINTEGER(line.Medico_idMedico)});
-
-//Unificar ID's
-CREATE CONSTRAINT ON (a:Atleta) ASSERT a.idAtleta IS UNIQUE;
-CREATE CONSTRAINT ON (c:Categoria) ASSERT c.idCategoria IS UNIQUE;
-CREATE CONSTRAINT ON (m:Modalidade) ASSERT m.idModalidade IS UNIQUE;
-CREATE CONSTRAINT ON (med:Medico) ASSERT med.idMedico IS UNIQUE;
-CREATE CONSTRAINT ON (con:Consulta) ASSERT con.idConsulta IS UNIQUE;
 
 //Relação Atleta/Categoria
 MATCH (a:Atleta),(c:Categoria)
@@ -55,7 +69,7 @@ CREATE(a)-[r:Participa]->(c);
 
 //Relação Categoria/Modalidade
 MATCH (c:Categoria),(m:Modalidade)
-WHERE c.Modalidade = m.idModalidade
+WHERE c.idModalidades = m.idModalidades
 CREATE(c)-[r:Pertence]->(m);
 
 //Relação Atleta/Consulta
